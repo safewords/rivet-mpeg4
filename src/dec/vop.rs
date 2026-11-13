@@ -844,11 +844,11 @@ impl VopDec<'_> {
             self.st.set_mb_mv(mbx, mby, frame);
             h.mvs = [frame; 4];
         } else if h.four {
-            for k in 0..4 {
+            for (k, block_mv) in h.mvs.iter_mut().enumerate() {
                 let pred = self.st.mv_pred(mbx, mby, k, self.slice);
                 let mv = read_mv(r, pred, self.hdr.fcode_forward)?;
                 self.st.set_mv(mbx, mby, k, mv);
-                h.mvs[k] = mv;
+                *block_mv = mv;
             }
         } else {
             let pred = self.st.mv_pred(mbx, mby, 0, self.slice);

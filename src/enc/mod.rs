@@ -349,8 +349,8 @@ fn apply_plan(st: &mut MbState, mbx: usize, mby: usize, p: &Plan) {
     if let Some((fmv, _)) = p.field {
         st.set_mb_mv(mbx, mby, field_to_frame(fmv[0], fmv[1]));
     } else {
-        for k in 0..4 {
-            st.set_mv(mbx, mby, k, p.mvs[k]);
+        for (k, &mv) in p.mvs.iter().enumerate() {
+            st.set_mv(mbx, mby, k, mv);
         }
     }
 }

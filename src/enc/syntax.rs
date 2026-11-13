@@ -122,8 +122,8 @@ impl MbSyntax {
     }
 
     fn dcs(&self, w: &mut BitWriter) {
-        for k in 0..6 {
-            put_dc_diff(w, self.dc[k], k < 4);
+        for (k, &dc) in self.dc.iter().enumerate() {
+            put_dc_diff(w, dc, k < 4);
         }
     }
 
